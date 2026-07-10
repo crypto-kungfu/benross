@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { aboutImage } from '../data/images';
+import { site } from '../data/site';
+
+const credentials = [
+  'RSPH Level 2 Award in Pest Management',
+  'Certificate 500/8797/6, passed 09/05/2022 at Pelsis Academy',
+  'BPCA member',
+  'Fully insured',
+];
+---
+
+<BaseLayout
+  title="About BR Pest Control"
+  description="Local pest control from Ripon covering homes, businesses, farms and rural properties across North Yorkshire. Qualified, insured, and BPCA member."
+  path="/about"
+>
+  <section class="bg-brand-charcoal text-white">
+    <div class="site-container grid gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div>
+        <p class="eyebrow text-white/70">About BR Pest Control</p>
+        <h1 class="mt-5 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">A local, qualified pest controller you can call directly</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
+          BR Pest Control is operated by Ben Ross from Ripon, serving domestic, commercial, and farm customers across nearby North Yorkshire towns and villages.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
+          <Button href="/services" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">View services</Button>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-3xl border border-white/10 shadow-[var(--shadow-lift)]">
+        <Image
+          src={aboutImage}
+          alt="Ben Ross, BR Pest Control (placeholder portrait image)"
+          width={720}
+          height={720}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-brand-cream">
+    <div class="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div class="rounded-3xl bg-white p-6 shadow-[var(--shadow-card)]">
+        <p class="eyebrow">Credentials</p>
+        <ul class="mt-5 space-y-4 text-brand-charcoal">
+          {credentials.map((item) => (
+            <li class="flex items-start gap-3 font-bold">
+              <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-red text-white">
+                <Icon name="check" class="h-4 w-4" />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <SectionHeading eyebrow="Local service" title="Speak to us directly" />
+        <div class="prose-copy mt-5">
+          <p>
+            Many pest problems need a quick, sensible response rather than a call-centre process. We're a local service, so you know exactly who you're dealing with.
+          </p>
+          <p>
+            The service covers homes, businesses, farms, yards, gardens, and outbuildings around Ripon, Boroughbridge, Thirsk, Bedale, and nearby villages.
+          </p>
+        </div>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref}>Call {site.phoneDisplay}</Button>
+          <Button href="/areas" variant="secondary">See areas covered</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

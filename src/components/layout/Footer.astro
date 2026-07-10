@@ -1,0 +1,53 @@
+---
+import { site } from '../../data/site';
+import Logo from '../ui/Logo.astro';
+---
+
+<footer class="border-t border-brand-line bg-brand-charcoal pb-24 pt-14 text-white md:pb-14">
+  <div class="site-container grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <div>
+      <div class="mb-4 flex items-center gap-3">
+        <Logo height={40} variant="full" />
+        <div>
+          <p class="font-extrabold">{site.name}</p>
+          <p class="text-sm text-white/70">{site.strapline}</p>
+        </div>
+      </div>
+      <p class="max-w-sm text-sm leading-7 text-white/75">
+        Local pest control from Ripon, covering Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-white/60">Explore</h2>
+      <ul class="space-y-3 text-sm text-white/80">
+        {site.nav.map((item) => <li><a class="transition hover:text-white" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-white/60">Areas</h2>
+      <ul class="space-y-3 text-sm text-white/80">
+        {site.areas.map((area) => <li><a class="transition hover:text-white" href={area.href}>{area.name}</a></li>)}
+      </ul>
+      <p class="mt-5 text-xs leading-6 text-white/60">
+        Service-area business. No public shopfront address.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-white/60">Contact</h2>
+      <ul class="space-y-3 text-sm text-white/80">
+        <li><a class="font-bold text-white transition hover:text-white/80" href={site.phoneHref}>{site.phoneDisplay}</a></li>
+        <li>
+          <span>{site.emailUser}</span><span aria-hidden="true"> [at] </span><span class="sr-only">@</span><span>{site.emailDomain}</span>
+        </li>
+        <li><a class="transition hover:text-white" href={site.facebookUrl}>Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="site-container mt-12 border-t border-white/10 pt-6 text-xs text-white/55">
+    <p>&copy; {new Date().getFullYear()} {site.name}. {site.credentials.join(' - ')}.</p>
+  </div>
+</footer>

@@ -1,0 +1,166 @@
+---
+interface MapMarker {
+  name: string;
+  lat: number;
+  lng: number;
+  href?: string;
+  primary?: boolean;
+}
+
+interface Props {
+  markers: MapMarker[];
+  center: { lat: number; lng: number };
+  zoom?: number;
+  radiusKm?: number;
+  height?: string;
+  class?: string;
+}
+
+const {
+  markers,
+  center,
+  zoom = 10,
+  radiusKm = 12,
+  height = '440px',
+  class: className = '',
+} = Astro.props;
+
+const config = JSON.stringify({ markers, center, zoom, radiusKm });
+---
+
+<div
+  class={`coverage-map overflow-hidden rounded-3xl border border-brand-line bg-brand-cream shadow-sm ${className}`}
+  style={`height: ${height};`}
+  data-coverage-map
+  data-config={config}
+  role="img"
+  aria-label={`Map showing the BR Pest Control coverage area: ${markers.map((m) => m.name).join(', ')}`}
+>
+</div>
+
+<style is:global>
+  .coverage-map {
+    position: relative;
+    z-index: 0;
+  }
+  .coverage-map .leaflet-container {
+    height: 100%;
+    width: 100%;
+    background: #fff8f3;
+    font-family: inherit;
+  }
+  .coverage-map .leaflet-popup-content-wrapper {
+    border-radius: 0.75rem;
+  }
+  .coverage-map .leaflet-popup-content {
+    margin: 0.75rem 1rem;
+    font-weight: 700;
+    color: #16191f;
+  }
+  .coverage-map .map-popup-link {
+    display: inline-block;
+    margin-top: 0.25rem;
+    color: #c8102e;
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  type MapMarker = {
+    name: string;
+    lat: number;
+    lng: number;
+    href?: string;
+    primary?: boolean;
+  };
+
+  type MapConfig = {
+    markers: MapMarker[];
+    center: { lat: number; lng: number };
+    zoom: number;
+    radiusKm: number;
+  };
+
+  const initMap = (el: HTMLElement) => {
+    if (el.dataset.mapReady === 'true') return;
+    el.dataset.mapReady = 'true';
+
+    const config = JSON.parse(el.dataset.config ?? '{}') as MapConfig;
+
+    const map = L.map(el, {
+      center: [config.center.lat, config.center.lng],
+      zoom: config.zoom,
+      scrollWheelZoom: false,
+      attributionControl: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    const bounds: [number, number][] = [];
+
+    config.markers.forEach((marker) => {
+      const latlng: [number, number] = [marker.lat, marker.lng];
+      bounds.push(latlng);
+
+      L.circle(latlng, {
+        radius: config.radiusKm * 1000,
+        color: '#c8102e',
+        weight: 1,
+        opacity: 0.35,
+        fillColor: '#c8102e',
+        fillOpacity: 0.08,
+      }).addTo(map);
+
+      L.circleMarker(latlng, {
+        radius: marker.primary ? 9 : 7,
+        color: '#ffffff',
+        weight: 2,
+        fillColor: '#c8102e',
+        fillOpacity: 1,
+      })
+        .addTo(map)
+        .bindPopup(
+          `<strong>${marker.name}</strong>${
+            marker.href ? `<br><a class="map-popup-link" href="${marker.href}">Pest control in ${marker.name}</a>` : ''
+          }`,
+        );
+    });
+
+    if (bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [48, 48] });
+    }
+
+    // Leaflet needs a size recalculation once it is actually visible.
+    window.setTimeout(() => map.invalidateSize(), 0);
+  };
+
+  const observe = (el: HTMLElement) => {
+    if (!('IntersectionObserver' in window)) {
+      initMap(el);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initMap(entry.target as HTMLElement);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '200px' },
+    );
+
+    observer.observe(el);
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-coverage-map]').forEach(observe);
+</script>

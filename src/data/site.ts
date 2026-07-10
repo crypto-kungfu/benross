@@ -1,0 +1,59 @@
+export const site = {
+  name: 'BR Pest Control',
+  operator: 'Ben Ross',
+  domain: 'brpestcontrol.co.uk',
+  url: 'https://brpestcontrol.co.uk',
+  phoneDisplay: '07411 841 699',
+  phoneHref: 'tel:+447411841699',
+  phoneE164: '+447411841699',
+  emailUser: 'rossben',
+  emailDomain: 'hotmail.co.uk',
+  facebookUrl: 'https://facebook.com/BenRosspestcontrol',
+  base: 'Ripon, North Yorkshire',
+  strapline: 'Professional, reliable & efficient - Fully insured',
+  tagline: 'Here to help with all your pest problems, no matter how large or small',
+  credentials: [
+    'Fully insured',
+    'RSPH Level 2 qualified',
+    'BPCA member',
+    '5-star review theme',
+  ],
+  areas: [
+    { name: 'Ripon', slug: 'ripon', href: '/pest-control-ripon', lat: 54.138, lng: -1.524 },
+    { name: 'Boroughbridge', slug: 'boroughbridge', href: '/pest-control-boroughbridge', lat: 54.094, lng: -1.397 },
+    { name: 'Thirsk', slug: 'thirsk', href: '/pest-control-thirsk', lat: 54.233, lng: -1.341 },
+    { name: 'Bedale', slug: 'bedale', href: '/pest-control-bedale', lat: 54.288, lng: -1.594 },
+  ],
+  mapCenter: { lat: 54.19, lng: -1.46, zoom: 10 },
+  nav: [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: 'Areas', href: '/areas' },
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+  ],
+};
+
+export const serviceOptions = [
+  'Wasp nest removal',
+  'Rats',
+  'Mice',
+  'Moles',
+  'Squirrels',
+  'Rabbits',
+  'Fleas',
+  'Cluster flies',
+  'Ants',
+  'Bed bugs',
+  'General insect control',
+  'Commercial or farm contract work',
+  'Other',
+];
+
+export const townOptions = [
+  'Ripon',
+  'Boroughbridge',
+  'Thirsk',
+  'Bedale',
+  'Other',
+];

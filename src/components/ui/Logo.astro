@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.png';
+import logoMark from '../../assets/logo-mark.png';
+
+interface Props {
+  class?: string;
+  height?: number;
+  variant?: 'full' | 'mark';
+}
+
+const { class: className = '', height = 44, variant = 'mark' } = Astro.props;
+const src = variant === 'full' ? logo : logoMark;
+const aspect = variant === 'full' ? 1024 / 215 : 300 / 215;
+const width = Math.round(height * aspect);
+---
+
+<Image
+  src={src}
+  alt="BR Pest Control"
+  width={width}
+  height={height}
+  class={`w-auto object-contain ${className}`}
+  loading="eager"
+  fetchpriority={variant === 'mark' ? 'high' : undefined}
+/>

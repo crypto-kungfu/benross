@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { serviceImages, serviceImageFallback } from '../data/images';
+import { site } from '../data/site';
+
+const services = await Promise.all(
+  (await getCollection('services'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (service) => ({
+      service,
+      Content: (await render(service)).Content,
+    })),
+);
+const areas = (await getCollection('areas')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Pest Control Services"
+  description="Pest control services from BR Pest Control, including wasp nest removal, rats, mice, moles, squirrels, rabbits, fleas, ants, bed bugs and farm pest work."
+  path="/services"
+>
+  <section class="bg-brand-charcoal text-white">
+    <div class="site-container py-16">
+      <p class="eyebrow text-white/70">Services</p>
+      <h1 class="mt-5 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl">Pest control services across Ripon and North Yorkshire</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
+        From fast wasp nest treatment to rodent, insect, mole, commercial, and farm pest control, we keep the advice clear and the next step simple.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
+        <Button href="/contact" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">
+          Enquire online
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-brand-cream">
+    <div class="site-container grid gap-6">
+      {services.map(({ service, Content }) => {
+        const image = serviceImages[service.data.slug] ?? serviceImageFallback;
+        return (
+          <article id={service.data.slug} class="scroll-mt-28 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-[var(--shadow-card)]">
+            <div class="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
+              <div class="relative min-h-56 overflow-hidden lg:min-h-full">
+                <Image
+                  src={image}
+                  alt={`${service.data.title} (placeholder image)`}
+                  width={720}
+                  height={560}
+                  class="h-full w-full object-cover"
+                />
+                {service.data.hero && (
+                  <span class="absolute left-4 top-4 rounded-full bg-brand-red px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-white">
+                    Most requested
+                  </span>
+                )}
+              </div>
+              <div class="p-6 md:p-8">
+                <h2 class="text-2xl font-black text-brand-charcoal">{service.data.title}</h2>
+                <p class="mt-4 text-lg leading-8 text-brand-muted">{service.data.summary}</p>
+                <div class="prose-copy mt-5">
+                  <p><strong>Problem:</strong> {service.data.problem}</p>
+                  <p><strong>Why it matters:</strong> {service.data.whyItMatters}</p>
+                  <Content />
+                  <Button href={service.data.slug === 'wasp-nest-removal' ? '/wasp-nest-removal' : site.phoneHref}>{service.data.cta}</Button>
+                </div>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="site-container">
+      <SectionHeading eyebrow="Coverage" title="Local pest control pages" />
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {areas.map((area) => (
+          <a class="flex items-center gap-2 rounded-2xl border border-brand-line p-5 font-extrabold text-brand-charcoal transition hover:border-brand-red hover:text-brand-red" href={`/pest-control-${area.data.slug}`}>
+            <Icon name="pin" class="h-5 w-5 text-brand-red" /> {area.data.town}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

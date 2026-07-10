@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Button from '../components/ui/Button.astro';
+import CoverageMap from '../components/ui/CoverageMap.astro';
+import Icon from '../components/ui/Icon.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import TestimonialCard from '../components/ui/TestimonialCard.astro';
+import { areaImages } from '../data/images';
+import { site } from '../data/site';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  area: CollectionEntry<'areas'>;
+  services: CollectionEntry<'services'>[];
+  testimonials: CollectionEntry<'testimonials'>[];
+  Content: (_props: Record<string, unknown>) => unknown;
+}
+
+const { area, services, testimonials, Content } = Astro.props;
+const path = `/pest-control-${area.data.slug}`;
+const areaImage = areaImages[area.data.slug];
+const geo = site.areas.find((entry) => entry.slug === area.data.slug);
+const townMarker = geo
+  ? [{ name: geo.name, lat: geo.lat, lng: geo.lng, href: path, primary: true }]
+  : [];
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: area.data.metaTitle,
+  description: area.data.metaDescription,
+  url: new URL(path, site.url).toString(),
+};
+---
+
+<BaseLayout title={area.data.metaTitle} description={area.data.metaDescription} path={path} jsonLd={[pageSchema]}>
+  <section class="bg-brand-charcoal text-white">
+    <div class="site-container grid gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div>
+        <p class="eyebrow text-white/70">Local pest control</p>
+        <h1 class="mt-4 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">{area.data.title}</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">{area.data.intro}</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref} variant="light">Call {site.phoneDisplay}</Button>
+          <Button href="/contact" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">
+            Send an enquiry
+          </Button>
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-3xl bg-white text-brand-charcoal shadow-[var(--shadow-lift)]">
+        {areaImage && (
+          <Image
+            src={areaImage}
+            alt={`${area.data.town}, North Yorkshire (placeholder image)`}
+            width={720}
+            height={420}
+            class="h-48 w-full object-cover sm:h-56"
+          />
+        )}
+        <div class="p-6">
+          <h2 class="text-xl font-black">Areas near {area.data.town}</h2>
+          <p class="mt-3 leading-7 text-brand-muted">{area.data.localNote}</p>
+          <ul class="mt-5 grid grid-cols-2 gap-2 text-sm font-bold">
+            {area.data.nearby.map((place) => (
+              <li class="flex items-center gap-1.5 rounded-full bg-brand-cream px-4 py-2">
+                <Icon name="pin" class="h-3.5 w-3.5 text-brand-red" /> {place}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {townMarker.length > 0 && geo && (
+    <section class="section bg-white">
+      <div class="site-container">
+        <p class="eyebrow">Coverage</p>
+        <h2 class="mt-3 text-3xl font-black tracking-tight text-brand-charcoal">{area.data.town} &amp; the surrounding area</h2>
+        <CoverageMap
+          class="mt-8"
+          markers={townMarker}
+          center={{ lat: geo.lat, lng: geo.lng }}
+          zoom={12}
+          radiusKm={8}
+          height="420px"
+        />
+      </div>
+    </section>
+  )}
+
+  <section class="section bg-brand-cream">
+    <div class="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">How we can help</p>
+        <h2 class="mt-3 text-3xl font-black tracking-tight text-brand-charcoal">Pest problems covered in {area.data.town}</h2>
+        <div class="prose-copy mt-6">
+          <Content />
+        </div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {services.slice(0, 6).map((service) => (
+          <ServiceCard title={service.data.title} summary={service.data.summary} slug={service.data.slug} hero={service.data.hero} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="site-container grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+      <div>
+        <p class="eyebrow">Fast, local response</p>
+        <h2 class="mt-3 text-3xl font-black tracking-tight text-brand-charcoal">Call BR Pest Control for {area.data.town}</h2>
+        <p class="mt-5 lead">
+          We cover {area.data.town} as part of our North Yorkshire service area. Call for wasp nests, rodents, moles, insects, and commercial or farm pest control.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref}>Call {site.phoneDisplay}</Button>
+          <Button href="/services" variant="secondary">View all services</Button>
+        </div>
+      </div>
+      {testimonials[0] && (
+        <TestimonialCard
+          quote={testimonials[0].data.quote}
+          author={testimonials[0].data.author}
+          date={testimonials[0].data.date}
+          rating={testimonials[0].data.rating}
+        />
+      )}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { serviceImages, serviceImageFallback } from '../../data/images';
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  summary: string;
+  slug: string;
+  hero?: boolean;
+}
+
+const { title, summary, slug, hero = false } = Astro.props;
+const href = slug === 'wasp-nest-removal' ? '/wasp-nest-removal' : `/services#${slug}`;
+const image: ImageMetadata = serviceImages[slug] ?? serviceImageFallback;
+---
+
+<article
+  class={`group flex flex-col overflow-hidden rounded-3xl border shadow-[var(--shadow-card)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] ${
+    hero ? 'border-brand-red' : 'border-brand-line'
+  }`}
+>
+  <div class="relative aspect-[16/10] overflow-hidden">
+    <Image
+      src={image}
+      alt={`${title} (placeholder image)`}
+      width={640}
+      height={400}
+      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+    />
+    {hero && (
+      <span class="absolute left-4 top-4 rounded-full bg-brand-red px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-white">
+        Most requested
+      </span>
+    )}
+  </div>
+  <div class="flex flex-1 flex-col bg-white p-6">
+    <h3 class="text-xl font-black text-brand-charcoal">{title}</h3>
+    <p class="mt-3 flex-1 leading-7 text-brand-muted">{summary}</p>
+    <a
+      href={href}
+      class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-brand-red transition hover:text-brand-red-dark"
+    >
+      {hero ? 'Wasp nest help' : 'Read more'}
+      <Icon name="arrow" class="h-4 w-4 transition group-hover:translate-x-1" />
+    </a>
+  </div>
+</article>

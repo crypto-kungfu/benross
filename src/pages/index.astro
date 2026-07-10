@@ -1,0 +1,165 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import AreaCard from '../components/ui/AreaCard.astro';
+import CoverageMap from '../components/ui/CoverageMap.astro';
+import Icon from '../components/ui/Icon.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import ServiceCard from '../components/ui/ServiceCard.astro';
+import TestimonialCard from '../components/ui/TestimonialCard.astro';
+import TrustStrip from '../components/ui/TrustStrip.astro';
+import { areaImages, heroImage } from '../data/images';
+import { site } from '../data/site';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const areas = (await getCollection('areas')).sort((a, b) => a.data.order - b.data.order);
+const testimonials = (await getCollection('testimonials'))
+  .filter((testimonial) => !testimonial.data.draft)
+  .sort((a, b) => a.data.order - b.data.order);
+
+const mapMarkers = site.areas.map((area) => ({
+  name: area.name,
+  lat: area.lat,
+  lng: area.lng,
+  href: area.href,
+  primary: area.slug === 'ripon',
+}));
+---
+
+<BaseLayout
+  title="Pest Control Ripon, Boroughbridge, Thirsk & Bedale"
+  description="BR Pest Control provides local pest control across Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire. Call us for fast, reliable help."
+>
+  <section class="relative isolate overflow-hidden bg-brand-charcoal text-white">
+    <div class="absolute inset-0 -z-10">
+      <Image
+        src={heroImage}
+        alt="BR Pest Control technician beside the work van in the North Yorkshire countryside (placeholder image)"
+        width={1920}
+        height={1280}
+        loading="eager"
+        fetchpriority="high"
+        class="h-full w-full object-cover object-right"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-charcoal via-brand-charcoal/90 to-brand-charcoal/40"></div>
+    </div>
+
+    <div class="site-container py-20 lg:py-28">
+      <div class="max-w-2xl">
+        <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-white ring-1 ring-white/20">
+          <Icon name="pin" class="h-4 w-4" /> {site.base}
+        </p>
+        <h1 class="mt-6 text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
+          Local pest control across Ripon &amp; North Yorkshire
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-white/85">{site.tagline}</p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref} variant="light" class="gap-2">
+            <Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}
+          </Button>
+          <Button href="/contact" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">
+            Send an enquiry
+          </Button>
+        </div>
+        <dl class="mt-10 grid max-w-lg grid-cols-3 gap-4 text-sm">
+          <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/15">
+            <dt class="text-white/70">Response</dt>
+            <dd class="mt-1 font-black">Fast &amp; local</dd>
+          </div>
+          <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/15">
+            <dt class="text-white/70">Cover</dt>
+            <dd class="mt-1 font-black">4+ towns</dd>
+          </div>
+          <div class="rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/15">
+            <dt class="text-white/70">Status</dt>
+            <dd class="mt-1 font-black">Insured</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <TrustStrip />
+
+  <section class="section bg-brand-cream">
+    <div class="site-container">
+      <SectionHeading
+        eyebrow="Services"
+        title="Pest problems we can help with"
+        lead="Short, practical pest control for homes, businesses, farms, gardens, and outbuildings."
+      />
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {services.slice(0, 6).map((service) => (
+          <ServiceCard title={service.data.title} summary={service.data.summary} slug={service.data.slug} hero={service.data.hero} />
+        ))}
+      </div>
+      <Button class="mt-10" href="/services" variant="secondary">View all services</Button>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <SectionHeading
+          eyebrow="Coverage"
+          title="Pest control across our local patch"
+          lead="Based in Ripon and covering nearby North Yorkshire towns, villages, and rural properties. Tap a marker to open that area's page."
+        />
+        <div class="mt-6 flex flex-wrap gap-2">
+          {areas.map((area) => (
+            <a
+              class="inline-flex items-center gap-1.5 rounded-full border border-brand-line bg-brand-cream px-4 py-2 text-sm font-bold text-brand-charcoal transition hover:border-brand-red hover:text-brand-red"
+              href={`/pest-control-${area.data.slug}`}
+            >
+              <Icon name="pin" class="h-4 w-4" /> {area.data.town}
+            </a>
+          ))}
+        </div>
+        <Button class="mt-8" href="/areas">See all areas</Button>
+      </div>
+      <CoverageMap markers={mapMarkers} center={site.mapCenter} zoom={site.mapCenter.zoom} />
+    </div>
+  </section>
+
+  <section class="section bg-brand-cream">
+    <div class="site-container">
+      <SectionHeading eyebrow="Areas" title="Choose your town" />
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {areas.map((area) => (
+          <AreaCard
+            town={area.data.town}
+            intro={area.data.intro}
+            href={`/pest-control-${area.data.slug}`}
+            image={areaImages[area.data.slug]}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-brand-red text-white">
+    <div class="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div>
+        <SectionHeading
+          eyebrow="Reviews"
+          title="Fast, efficient service"
+          lead="Customers value our quick response and efficient treatment."
+          tone="light"
+        />
+        <Button class="mt-8" href={site.phoneHref} variant="light">Call {site.phoneDisplay}</Button>
+      </div>
+      <div class="grid gap-5">
+        {testimonials.map((testimonial) => (
+          <TestimonialCard
+            quote={testimonial.data.quote}
+            author={testimonial.data.author}
+            date={testimonial.data.date}
+            rating={testimonial.data.rating}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

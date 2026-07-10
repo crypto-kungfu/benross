@@ -1,0 +1,96 @@
+---
+import { serviceOptions, townOptions } from '../../data/site';
+---
+
+<form id="contact-form" class="grid gap-5 rounded-3xl border border-brand-line bg-white p-6 shadow-sm md:p-8" method="post" action="/api/contact">
+  <div class="grid gap-5 md:grid-cols-2">
+    <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+      Name
+      <input class="rounded-2xl border border-brand-line px-4 py-3 font-normal" name="name" autocomplete="name" required />
+    </label>
+
+    <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+      Phone
+      <input class="rounded-2xl border border-brand-line px-4 py-3 font-normal" name="phone" autocomplete="tel" required />
+    </label>
+  </div>
+
+  <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+    Email
+    <input class="rounded-2xl border border-brand-line px-4 py-3 font-normal" type="email" name="email" autocomplete="email" required />
+  </label>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+      Town
+      <select class="rounded-2xl border border-brand-line px-4 py-3 font-normal" name="town" required>
+        <option value="">Select a town</option>
+        {townOptions.map((town) => <option value={town}>{town}</option>)}
+      </select>
+    </label>
+
+    <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+      Pest type
+      <select class="rounded-2xl border border-brand-line px-4 py-3 font-normal" name="pestType" required>
+        <option value="">Select a pest type</option>
+        {serviceOptions.map((service) => <option value={service}>{service}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <label class="grid gap-2 text-sm font-bold text-brand-charcoal">
+    Message
+    <textarea class="min-h-36 rounded-2xl border border-brand-line px-4 py-3 font-normal" name="message" required></textarea>
+  </label>
+
+  <div class="absolute left-[-9999px]" aria-hidden="true">
+    <label>
+      Company
+      <input name="company" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <button class="rounded-full bg-brand-red px-6 py-3 text-sm font-black text-white transition hover:bg-brand-red-dark" type="submit">
+    Send enquiry
+  </button>
+
+  <p id="contact-form-status" class="hidden rounded-2xl px-4 py-3 text-sm font-bold" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const status = document.querySelector<HTMLParagraphElement>('#contact-form-status');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!status) return;
+
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    submitButton?.setAttribute('disabled', 'true');
+    status.className = 'rounded-2xl bg-brand-cream px-4 py-3 text-sm font-bold text-brand-charcoal';
+    status.textContent = 'Sending your enquiry...';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message ?? 'Something went wrong. Please call us instead.');
+      }
+
+      form.reset();
+      status.className = 'rounded-2xl bg-green-50 px-4 py-3 text-sm font-bold text-green-900';
+      status.textContent = result.message ?? 'Thanks, your enquiry has been sent.';
+    } catch (error) {
+      status.className = 'rounded-2xl bg-red-50 px-4 py-3 text-sm font-bold text-red-900';
+      status.textContent = error instanceof Error ? error.message : 'Something went wrong. Please call us instead.';
+    } finally {
+      submitButton?.removeAttribute('disabled');
+    }
+  });
+</script>

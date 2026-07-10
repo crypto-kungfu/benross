@@ -1,0 +1,63 @@
+---
+import ContactForm from '../components/forms/ContactForm.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Contact BR Pest Control"
+  description="Contact BR Pest Control for pest control in Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire. Call us or send an enquiry."
+  path="/contact"
+>
+  <section class="bg-brand-charcoal text-white">
+    <div class="site-container grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <p class="eyebrow text-white/70">Contact</p>
+        <h1 class="mt-5 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">Call us or send a pest control enquiry</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
+          Tell us what you are seeing, where you are based, and the best number to reach you on.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
+          <Button href="/wasp-nest-removal" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">
+            Wasp nest help
+          </Button>
+        </div>
+      </div>
+      <div class="rounded-3xl bg-white p-6 text-brand-charcoal shadow-xl">
+        <h2 class="text-2xl font-black">Direct contact</h2>
+        <dl class="mt-5 grid gap-4 text-sm">
+          <div>
+            <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Phone</dt>
+            <dd class="mt-1 text-lg font-black"><a href={site.phoneHref}>{site.phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Email</dt>
+            <dd class="mt-1 text-lg font-black">
+              <span>{site.emailUser}</span><span aria-hidden="true"> [at] </span><span class="sr-only">@</span><span>{site.emailDomain}</span>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Coverage</dt>
+            <dd class="mt-1">Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-brand-cream">
+    <div class="site-container grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">Enquiry form</p>
+        <h2 class="mt-3 text-3xl font-black text-brand-charcoal">Send the details</h2>
+        <p class="mt-5 lead">
+          Enquiries go straight to us once the live email provider is configured. If the problem is urgent, calling is the fastest route.
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
