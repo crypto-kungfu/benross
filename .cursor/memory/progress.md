@@ -1,6 +1,6 @@
 # BR Pest Control — Progress
 
-*Last updated: 2026-06-30*
+*Last updated: 2026-07-16*
 
 ## Foundation
 
@@ -33,12 +33,18 @@
 - ✅ Verified in browser at desktop + mobile (390px): nav correct, Leaflet tiles + markers render, images load, mobile menu + call bar work.
 - ✅ Fixed mobile edge spacing by replacing the conflicting Tailwind `container` utility with a project-specific `.site-container` wrapper and aligning the sticky call bar gutter.
 
+### Imagery & credentials (2026-07-16)
+- ✅ Homepage hero uses Ben's real van photograph; mobile hero drops to solid charcoal.
+- ✅ Replaced BPCA member with BASIS PROMPT registered across site + About; pulled official BASIS PROMPT logo.
+- ✅ Swapped AI area images for real Wikimedia/Geograph photos (Ripon Cathedral, Boroughbridge High Street, Thirsk Market Place, Bedale Market Place) with CC attribution in the footer.
+- ✅ Contact form endpoint wired to Resend with text + HTML emails, honeypot, validation, safe fallback messages, env docs, and build verification.
+
 ### In Progress
 - 🚧 Launch preparation.
 
 ### Pending
 - ⏳ Deploy to Vercel.
-- ⏳ Configure live contact-form email environment variables.
+- ⏳ Configure live Resend environment variables and verified sender/domain.
 - ⏳ Run post-deploy Lighthouse and Rich Results checks.
 
 ## Launch Blockers
@@ -48,7 +54,7 @@
 - ⏳ Confirm WhatsApp click-to-chat.
 - ⏳ Confirm opening hours or response-time promise.
 - ⏳ Supply final logo asset and real photos if available (current imagery in `src/assets/images/` is AI-generated placeholder — swap for Ben's own photos).
-- ⏳ Configure Resend environment variables and verified sender.
+- ⏳ Configure Resend environment variables and verified sender/domain.
 - ⏳ Deploy to Vercel and connect `brpestcontrol.co.uk`.
 - ⏳ Validate schema in Google Rich Results.
 - ⏳ Add analytics and call tracking.

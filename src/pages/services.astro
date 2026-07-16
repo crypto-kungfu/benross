@@ -33,7 +33,7 @@ const areas = (await getCollection('areas')).sort((a, b) => a.data.order - b.dat
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
-        <Button href="/contact" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">
+        <Button href="/contact" variant="inverse">
           Enquire online
         </Button>
       </div>

@@ -4,20 +4,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
+import basisPromptLogo from '../assets/images/badges/basis-prompt-logo.png';
 import { aboutImage } from '../data/images';
 import { site } from '../data/site';
 
 const credentials = [
   'RSPH Level 2 Award in Pest Management',
   'Certificate 500/8797/6, passed 09/05/2022 at Pelsis Academy',
-  'BPCA member',
+  'BASIS PROMPT registered',
   'Fully insured',
 ];
 ---
 
 <BaseLayout
   title="About BR Pest Control"
-  description="Local pest control from Ripon covering homes, businesses, farms and rural properties across North Yorkshire. Qualified, insured, and BPCA member."
+  description="Local pest control from Ripon covering homes, businesses, farms and rural properties across North Yorkshire. Qualified, insured, and BASIS PROMPT registered."
   path="/about"
 >
   <section class="bg-brand-charcoal text-white">
@@ -30,13 +31,13 @@ const credentials = [
         </p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row">
           <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
-          <Button href="/services" variant="secondary" class="border-white text-white hover:bg-white hover:text-brand-red">View services</Button>
+          <Button href="/services" variant="inverse">View services</Button>
         </div>
       </div>
       <div class="relative overflow-hidden rounded-3xl border border-white/10 shadow-[var(--shadow-lift)]">
         <Image
           src={aboutImage}
-          alt="Ben Ross, BR Pest Control (placeholder portrait image)"
+          alt="Ben Ross, owner of BR Pest Control"
           width={720}
           height={720}
           class="h-full w-full object-cover"
@@ -59,6 +60,23 @@ const credentials = [
             </li>
           ))}
         </ul>
+        <a
+          class="mt-6 flex items-center gap-4 rounded-2xl bg-brand-cream px-4 py-3 transition hover:ring-1 hover:ring-brand-line"
+          href="https://basis-prompt.co.uk/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image
+            src={basisPromptLogo}
+            alt="BASIS PROMPT"
+            width={140}
+            height={90}
+            class="h-12 w-auto object-contain"
+          />
+          <span class="text-sm font-bold leading-6 text-brand-muted">
+            Registered on the BASIS PROMPT professional pest controllers register
+          </span>
+        </a>
       </div>
       <div>
         <SectionHeading eyebrow="Local service" title="Speak to us directly" />

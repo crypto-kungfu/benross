@@ -3,7 +3,7 @@
 *Last updated: 2026-06-30*
 
 ## Current Focus
-Phase 1 build and the premium redesign are complete. The current focus is launch preparation: configure live email, swap placeholder imagery for Ben's real photos, deploy to Vercel, and validate SEO output.
+Launch preparation. Hero now uses Ben's real van photo; area town photos swapped to Wikimedia Commons originals; BPCA claim replaced with BASIS PROMPT registered (logo from basis-prompt.co.uk). Contact form is wired to Resend and awaits live Resend env vars/domain verification.
 
 ## Decisions
 - Astro + Tailwind CSS is the stack.
@@ -16,7 +16,8 @@ Phase 1 build and the premium redesign are complete. The current focus is launch
 - `path-to-regexp` is overridden to `6.3.0` to clear the current Vercel adapter transitive audit advisory.
 - Primary nav is Home / Services / Areas / About / Contact. Wasp Nest Removal stays as a page (linked from home/services) but is out of the nav.
 - Maps use Leaflet + OpenStreetMap (no API key). `CoverageMap.astro` uses `circleMarker` (avoids Leaflet default-marker asset path) + a coverage `circle`, with lazy `IntersectionObserver` init; bundle only ships on `/areas`, home, and town pages.
-- Imagery is centralised in `src/data/images.ts` (slug→category map for services, slug map for areas) rather than per-file frontmatter — 12 services map to 5 category images. Images live in `src/assets/images/` for `astro:assets` webp optimisation. All current images are AI-generated placeholders to be swapped for Ben's photos.
+- Imagery is centralised in `src/data/images.ts`. Area photos are real Wikimedia/Geograph shots with attribution in `image-credits.ts` + footer. Service/about imagery still mostly AI placeholders. Hero uses Ben's real photo.
+- Credential line is BASIS PROMPT registered (not BPCA). Official logo in `src/assets/images/badges/`; PROMPT Verified artwork also downloaded there if needed later.
 - Type uses self-hosted Inter (`@fontsource-variable/inter`, family "Inter Variable").
 - Project page gutters use `.site-container` instead of Tailwind's reserved `container` utility so mobile content keeps the intended side spacing.
 
@@ -25,11 +26,11 @@ Phase 1 build and the premium redesign are complete. The current focus is launch
 - Opening hours and any public response-time promise are not confirmed.
 - WhatsApp click-to-chat is not confirmed.
 - Final logo and real photos are pending — all site imagery is currently AI-generated placeholder.
-- Live email cannot be proven until a Resend API key and verified sender are configured.
+- Live email cannot be proven until `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`, and a verified Resend sender/domain are configured.
 - Analytics and call tracking are not yet configured.
 
 ## Immediate Next Steps
-1. Configure `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, and `CONTACT_TO_EMAIL` in Vercel.
+1. Configure `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, and `CONTACT_TO_EMAIL` in Vercel after verifying the sender/domain in Resend.
 2. Swap placeholder imagery in `src/assets/images/` for Ben's real photos; add remaining review copy and final logo when supplied.
 3. Deploy to Vercel and connect `brpestcontrol.co.uk`.
 4. Validate schema (incl. new ItemList on `/areas`), sitemap, and Lighthouse before launch.

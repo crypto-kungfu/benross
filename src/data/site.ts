@@ -15,7 +15,7 @@ export const site = {
   credentials: [
     'Fully insured',
     'RSPH Level 2 qualified',
-    'BPCA member',
+    'BASIS PROMPT registered',
     '5-star review theme',
   ],
   areas: [

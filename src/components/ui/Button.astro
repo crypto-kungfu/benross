@@ -1,7 +1,7 @@
 ---
 interface Props {
   href: string;
-  variant?: 'primary' | 'secondary' | 'light';
+  variant?: 'primary' | 'secondary' | 'light' | 'inverse';
   class?: string;
 }
 
@@ -11,6 +11,7 @@ const variants = {
   primary: 'bg-brand-red text-white hover:bg-brand-red-dark',
   secondary: 'border border-brand-red text-brand-red hover:bg-brand-red hover:text-white',
   light: 'bg-white text-brand-red hover:bg-brand-cream',
+  inverse: 'border border-white text-white hover:bg-white hover:text-brand-red',
 };
 ---
 

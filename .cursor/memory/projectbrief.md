@@ -20,7 +20,7 @@ Lead-generation website for BR Pest Control, a Ripon-based sole trader, built to
 | Phone | 07411 841 699 |
 | Email | rossben@hotmail.co.uk |
 | Facebook | facebook.com/BenRosspestcontrol |
-| Credentials | RSPH Level 2 Award in Pest Management, BPCA member, fully insured |
+| Credentials | RSPH Level 2 Award in Pest Management, BASIS PROMPT registered, fully insured |
 
 ## Non-Negotiable Address Rule
 Ben's registered address is residential. Do not publish the street address anywhere in the UI, content, schema, metadata, README, or generated assets.

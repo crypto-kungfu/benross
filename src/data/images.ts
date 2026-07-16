@@ -38,6 +38,7 @@ export const serviceImages: Record<string, ImageMetadata> = {
   'commercial-farm-contracts': serviceCommercial,
 };
 
+// Real town photographs (Wikimedia Commons / Geograph). See image-credits.ts.
 export const areaImages: Record<string, ImageMetadata> = {
   ripon: areaRipon,
   boroughbridge: areaBoroughbridge,

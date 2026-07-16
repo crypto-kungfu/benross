@@ -31,7 +31,7 @@ Preferred messaging:
 
 ## Trust Signals
 - RSPH Level 2 Award in Pest Management
-- BPCA member
+- BASIS PROMPT registered
 - Fully insured
 - Five-star review theme
 - Ben is a real local operator, not a faceless national call centre
