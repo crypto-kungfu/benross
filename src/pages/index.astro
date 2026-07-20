@@ -41,9 +41,16 @@ const mapMarkers = site.areas.map((area) => ({
         height={1024}
         loading="eager"
         fetchpriority="high"
-        class="h-full w-full scale-[1.45] origin-left object-cover object-[85%_center] -translate-y-[2%] md:scale-[1.25] md:origin-right md:object-right md:translate-x-[3%] md:-translate-y-[4%]"
+        class="h-full w-full scale-[1.45] origin-left object-cover object-[70%_center] -translate-y-[2%] md:scale-100 md:origin-right md:object-right md:translate-y-0"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-brand-charcoal via-brand-charcoal/80 to-brand-charcoal/25"></div>
+      <div
+        class="absolute inset-0 bg-[linear-gradient(to_right,var(--colour-charcoal)_0%,rgba(22,25,31,0.72)_18%,rgba(22,25,31,0.35)_38%,transparent_55%)] md:bg-[linear-gradient(to_right,var(--colour-charcoal)_0%,rgba(22,25,31,0.88)_22%,rgba(22,25,31,0.45)_32%,transparent_40%)]"
+        aria-hidden="true"
+      ></div>
+      <div
+        class="absolute inset-0 bg-[linear-gradient(to_left,rgba(22,25,31,0.5)_0%,transparent_10%)] md:bg-[linear-gradient(to_left,var(--colour-charcoal)_0%,rgba(22,25,31,0.7)_10%,transparent_20%)]"
+        aria-hidden="true"
+      ></div>
     </div>
 
     <div class="site-container py-20 lg:py-28">

@@ -1,6 +1,6 @@
 # BR Pest Control — Progress
 
-*Last updated: 2026-07-16*
+*Last updated: 2026-07-20*
 
 ## Foundation
 
@@ -35,6 +35,10 @@
 
 ### Imagery & credentials (2026-07-16)
 - ✅ Homepage hero uses Ben's real van photograph; mobile hero drops to solid charcoal.
+
+### Hero refresh (2026-07-20)
+- ✅ Replaced hero with outdoor Ben + van portrait (`hero.jpg` from supplied PNG).
+- ✅ Left charcoal gradient overlay fades to transparent by ~40% so the right side (Ben + van) stays unobscured.
 - ✅ Replaced BPCA member with BASIS PROMPT registered across site + About; pulled official BASIS PROMPT logo.
 - ✅ Swapped AI area images for real Wikimedia/Geograph photos (Ripon Cathedral, Boroughbridge High Street, Thirsk Market Place, Bedale Market Place) with CC attribution in the footer.
 - ✅ Contact form endpoint wired to Resend with text + HTML emails, honeypot, validation, safe fallback messages, env docs, and build verification.
