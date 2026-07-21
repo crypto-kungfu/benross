@@ -47,6 +47,7 @@
 - ✅ Removed public hotmail display from contact page and footer; footer Contact column links to enquiry form.
 - ✅ Added shared `coveragePhrase` ("…and surrounding areas") in `site.ts`; wired across home, contact, areas, about, wasp, footer, and AreaCards. Hub labels are plain town names (no trailing `+`).
 - ✅ `npm run build` passes after wording changes.
+- ✅ Added `public/sitemap.xml` and pointed `robots.txt` at it for search engine discovery.
 
 ### In Progress
 - 🚧 Launch preparation.

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brpestcontrol.co.uk/sitemap-index.xml
+Sitemap: https://brpestcontrol.co.uk/sitemap.xml

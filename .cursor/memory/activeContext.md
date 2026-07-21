@@ -13,7 +13,7 @@ Launch preparation. Hero uses the outdoor van portrait with a left-only charcoal
 - Do not publish Ben's residential street address anywhere.
 - Contact form will use an Astro API route and Resend once environment variables are configured.
 - Do not display the hotmail address on contact or footer — phone + enquiry form only. Email remains in `site.ts` for JSON-LD and Resend `CONTACT_TO_EMAIL`.
-- Coverage uses shared `coveragePhrase` ("Ripon, Boroughbridge, Thirsk, Bedale and surrounding areas") so coverage does not read as four rigid towns only. Hub `label` matches town name (no trailing `+`).
+- Canonical sitemap is `public/sitemap.xml` (advertised in `robots.txt`). `@astrojs/sitemap` still generates sitemap-0/index at build as a backup.
 - Astro 7 uses `src/content.config.ts` with explicit `glob` loaders for content collections.
 - `path-to-regexp` is overridden to `6.3.0` to clear the current Vercel adapter transitive audit advisory.
 - Primary nav is Home / Services / Areas / About / Contact. Wasp Nest Removal stays as a page (linked from home/services) but is out of the nav.
