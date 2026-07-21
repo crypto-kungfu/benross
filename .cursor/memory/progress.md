@@ -45,7 +45,7 @@
 
 ### Contact & coverage wording (2026-07-21)
 - ✅ Removed public hotmail display from contact page and footer; footer Contact column links to enquiry form.
-- ✅ Added hub `label` (Town+) and shared `coveragePhrase` in `site.ts`; wired across home, contact, areas, about, wasp, footer, and AreaCards.
+- ✅ Added shared `coveragePhrase` ("…and surrounding areas") in `site.ts`; wired across home, contact, areas, about, wasp, footer, and AreaCards. Hub labels are plain town names (no trailing `+`).
 - ✅ `npm run build` passes after wording changes.
 
 ### In Progress
