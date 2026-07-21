@@ -19,11 +19,12 @@ export const site = {
     '5-star review theme',
   ],
   areas: [
-    { name: 'Ripon', slug: 'ripon', href: '/pest-control-ripon', lat: 54.138, lng: -1.524 },
-    { name: 'Boroughbridge', slug: 'boroughbridge', href: '/pest-control-boroughbridge', lat: 54.094, lng: -1.397 },
-    { name: 'Thirsk', slug: 'thirsk', href: '/pest-control-thirsk', lat: 54.233, lng: -1.341 },
-    { name: 'Bedale', slug: 'bedale', href: '/pest-control-bedale', lat: 54.288, lng: -1.594 },
+    { name: 'Ripon', label: 'Ripon+', slug: 'ripon', href: '/pest-control-ripon', lat: 54.138, lng: -1.524 },
+    { name: 'Boroughbridge', label: 'Boroughbridge+', slug: 'boroughbridge', href: '/pest-control-boroughbridge', lat: 54.094, lng: -1.397 },
+    { name: 'Thirsk', label: 'Thirsk+', slug: 'thirsk', href: '/pest-control-thirsk', lat: 54.233, lng: -1.341 },
+    { name: 'Bedale', label: 'Bedale+', slug: 'bedale', href: '/pest-control-bedale', lat: 54.288, lng: -1.594 },
   ],
+  coveragePhrase: 'Ripon+, Boroughbridge+, Thirsk+, Bedale+ and surrounding areas',
   mapCenter: { lat: 54.19, lng: -1.46, zoom: 10 },
   nav: [
     { label: 'Home', href: '/' },

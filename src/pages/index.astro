@@ -29,8 +29,8 @@ const mapMarkers = site.areas.map((area) => ({
 ---
 
 <BaseLayout
-  title="Pest Control Ripon, Boroughbridge, Thirsk & Bedale"
-  description="BR Pest Control provides local pest control across Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire. Call us for fast, reliable help."
+  title="Pest Control Ripon+, Boroughbridge+, Thirsk+, Bedale+ & Surrounding Areas"
+  description={`BR Pest Control provides local pest control across ${site.coveragePhrase}. Call us for fast, reliable help.`}
 >
   <section class="relative isolate overflow-hidden bg-brand-charcoal text-white">
     <div class="absolute inset-0 -z-10">
@@ -112,15 +112,15 @@ const mapMarkers = site.areas.map((area) => ({
         <SectionHeading
           eyebrow="Coverage"
           title="Pest control across our local patch"
-          lead="Based in Ripon and covering nearby North Yorkshire towns, villages, and rural properties. Tap a marker to open that area's page."
+          lead={`Based in Ripon and covering ${site.coveragePhrase}. Tap a marker to open that area's page.`}
         />
         <div class="mt-6 flex flex-wrap gap-2">
-          {areas.map((area) => (
+          {site.areas.map((area) => (
             <a
               class="inline-flex items-center gap-1.5 rounded-full border border-brand-line bg-brand-cream px-4 py-2 text-sm font-bold text-brand-charcoal transition hover:border-brand-red hover:text-brand-red"
-              href={`/pest-control-${area.data.slug}`}
+              href={area.href}
             >
-              <Icon name="pin" class="h-4 w-4" /> {area.data.town}
+              <Icon name="pin" class="h-4 w-4" /> {area.label}
             </a>
           ))}
         </div>
@@ -137,6 +137,7 @@ const mapMarkers = site.areas.map((area) => ({
         {areas.map((area) => (
           <AreaCard
             town={area.data.town}
+            label={site.areas.find((entry) => entry.slug === area.data.slug)?.label}
             intro={area.data.intro}
             href={`/pest-control-${area.data.slug}`}
             image={areaImages[area.data.slug]}

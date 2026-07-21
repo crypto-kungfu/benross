@@ -34,7 +34,7 @@ const itemListSchema = {
 
 <BaseLayout
   title="Areas We Cover"
-  description="BR Pest Control covers Ripon, Boroughbridge, Thirsk, Bedale and the surrounding North Yorkshire towns, villages, farms and rural properties."
+  description={`BR Pest Control covers ${site.coveragePhrase}, including nearby towns, villages, farms and rural properties.`}
   path="/areas"
   jsonLd={[itemListSchema]}
 >
@@ -43,7 +43,7 @@ const itemListSchema = {
       <p class="eyebrow text-white/70">Areas</p>
       <h1 class="mt-5 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl">Pest control across Ripon &amp; North Yorkshire</h1>
       <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
-        Based in Ripon, we cover the surrounding market towns, villages, farms, and rural properties. If your town is not listed, call and ask &mdash; our patch is flexible.
+        Based in Ripon, we cover {site.coveragePhrase}. If your town is not listed, call and ask &mdash; our patch is flexible.
       </p>
       <div class="mt-8 flex flex-col gap-3 sm:flex-row">
         <Button href={site.phoneHref} variant="light" class="gap-2"><Icon name="phone" class="h-5 w-5" /> Call {site.phoneDisplay}</Button>
@@ -71,11 +71,12 @@ const itemListSchema = {
 
   <section class="section bg-brand-cream">
     <div class="site-container">
-      <SectionHeading eyebrow="Towns" title="Local pest control pages" />
+      <SectionHeading eyebrow="Towns" title="Local pest control hubs" lead={`Core pages for ${site.coveragePhrase}.`} />
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {areas.map((area) => (
           <AreaCard
             town={area.data.town}
+            label={site.areas.find((entry) => entry.slug === area.data.slug)?.label}
             intro={area.data.intro}
             href={`/pest-control-${area.data.slug}`}
             image={areaImages[area.data.slug]}

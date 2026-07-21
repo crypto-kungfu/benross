@@ -1,6 +1,6 @@
 # BR Pest Control — Progress
 
-*Last updated: 2026-07-20*
+*Last updated: 2026-07-21*
 
 ## Foundation
 
@@ -42,6 +42,11 @@
 - ✅ Replaced BPCA member with BASIS PROMPT registered across site + About; pulled official BASIS PROMPT logo.
 - ✅ Swapped AI area images for real Wikimedia/Geograph photos (Ripon Cathedral, Boroughbridge High Street, Thirsk Market Place, Bedale Market Place) with CC attribution in the footer.
 - ✅ Contact form endpoint wired to Resend with text + HTML emails, honeypot, validation, safe fallback messages, env docs, and build verification.
+
+### Contact & coverage wording (2026-07-21)
+- ✅ Removed public hotmail display from contact page and footer; footer Contact column links to enquiry form.
+- ✅ Added hub `label` (Town+) and shared `coveragePhrase` in `site.ts`; wired across home, contact, areas, about, wasp, footer, and AreaCards.
+- ✅ `npm run build` passes after wording changes.
 
 ### In Progress
 - 🚧 Launch preparation.

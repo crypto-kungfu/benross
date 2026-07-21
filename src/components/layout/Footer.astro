@@ -15,7 +15,7 @@ import Logo from '../ui/Logo.astro';
         </div>
       </div>
       <p class="max-w-sm text-sm leading-7 text-white/75">
-        Local pest control from Ripon, covering Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire.
+        Local pest control covering {site.coveragePhrase}.
       </p>
     </div>
 
@@ -29,7 +29,7 @@ import Logo from '../ui/Logo.astro';
     <div>
       <h2 class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-white/60">Areas</h2>
       <ul class="space-y-3 text-sm text-white/80">
-        {site.areas.map((area) => <li><a class="transition hover:text-white" href={area.href}>{area.name}</a></li>)}
+        {site.areas.map((area) => <li><a class="transition hover:text-white" href={area.href}>{area.label}</a></li>)}
       </ul>
       <p class="mt-5 text-xs leading-6 text-white/60">
         Service-area business. No public shopfront address.
@@ -40,9 +40,7 @@ import Logo from '../ui/Logo.astro';
       <h2 class="mb-4 text-sm font-extrabold uppercase tracking-[0.16em] text-white/60">Contact</h2>
       <ul class="space-y-3 text-sm text-white/80">
         <li><a class="font-bold text-white transition hover:text-white/80" href={site.phoneHref}>{site.phoneDisplay}</a></li>
-        <li>
-          <span>{site.emailUser}</span><span aria-hidden="true"> [at] </span><span class="sr-only">@</span><span>{site.emailDomain}</span>
-        </li>
+        <li><a class="transition hover:text-white" href="/contact">Send an enquiry</a></li>
         <li><a class="transition hover:text-white" href={site.facebookUrl}>Facebook</a></li>
       </ul>
     </div>

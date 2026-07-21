@@ -13,7 +13,7 @@ const testimonials = (await getCollection('testimonials'))
 
 <BaseLayout
   title="Wasp Nest Removal Ripon & North Yorkshire"
-  description="Fast wasp nest removal from BR Pest Control across Ripon, Boroughbridge, Thirsk, Bedale and nearby North Yorkshire villages. Call us for quick help."
+  description={`Fast wasp nest removal from BR Pest Control across ${site.coveragePhrase}. Call us for quick help.`}
   path="/wasp-nest-removal"
 >
   <section class="bg-brand-red text-white">
@@ -71,12 +71,12 @@ const testimonials = (await getCollection('testimonials'))
       <p class="eyebrow">Wasp nest removal near you</p>
       <h2 class="mt-3 text-3xl font-black text-brand-charcoal">Coverage for wasp nests</h2>
       <p class="mt-4 max-w-2xl lead">
-        BR Pest Control handles wasp nest removal across the main service area and surrounding North Yorkshire villages.
+        BR Pest Control handles wasp nest removal across {site.coveragePhrase}.
       </p>
       <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {areas.map((area) => (
           <a class="rounded-2xl border border-brand-line bg-brand-cream p-5 transition hover:border-brand-red" href={`/pest-control-${area.data.slug}`}>
-            <h3 class="font-black text-brand-charcoal">Wasp nest removal in {area.data.town}</h3>
+            <h3 class="font-black text-brand-charcoal">Wasp nest removal in {site.areas.find((entry) => entry.slug === area.data.slug)?.label ?? area.data.town}</h3>
             <p class="mt-2 text-sm text-brand-muted">{area.data.intro}</p>
           </a>
         ))}

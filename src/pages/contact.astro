@@ -8,7 +8,7 @@ import { site } from '../data/site';
 
 <BaseLayout
   title="Contact BR Pest Control"
-  description="Contact BR Pest Control for pest control in Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire. Call us or send an enquiry."
+  description={`Contact BR Pest Control for pest control in ${site.coveragePhrase}. Call us or send an enquiry.`}
   path="/contact"
 >
   <section class="bg-brand-charcoal text-white">
@@ -27,21 +27,15 @@ import { site } from '../data/site';
         </div>
       </div>
       <div class="rounded-3xl bg-white p-6 text-brand-charcoal shadow-xl">
-        <h2 class="text-2xl font-black">Direct contact</h2>
+        <h2 class="text-2xl font-black">Call us</h2>
         <dl class="mt-5 grid gap-4 text-sm">
           <div>
             <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Phone</dt>
             <dd class="mt-1 text-lg font-black"><a href={site.phoneHref}>{site.phoneDisplay}</a></dd>
           </div>
           <div>
-            <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Email</dt>
-            <dd class="mt-1 text-lg font-black">
-              <span>{site.emailUser}</span><span aria-hidden="true"> [at] </span><span class="sr-only">@</span><span>{site.emailDomain}</span>
-            </dd>
-          </div>
-          <div>
             <dt class="font-black uppercase tracking-[0.14em] text-brand-muted">Coverage</dt>
-            <dd class="mt-1">Ripon, Boroughbridge, Thirsk, Bedale and surrounding North Yorkshire.</dd>
+            <dd class="mt-1">{site.coveragePhrase}.</dd>
           </div>
         </dl>
       </div>
